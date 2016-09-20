@@ -47,10 +47,23 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
     url: '/Reading',
     views: {
       'menuContent': {
-        templateUrl: 'templates/Reading.html'
+        templateUrl: 'templates/Reading.html',
+        controller: 'ListCtrl2'
       }
     }
   })
+  .state('app.form2', {
+      url: '/form2/{id}',
+      params: {
+        id: {value: null},
+      },
+      views: {
+        'menuContent': {
+      templateUrl: 'templates/form2.html',
+      controller: 'FormCtrl2',
+      }
+      }
+    })
 
 
   $urlRouterProvider.otherwise('/app/toRead')

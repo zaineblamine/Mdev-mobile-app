@@ -1,19 +1,22 @@
 <ion-view view-title="Currently Reading">
   <ion-content>
-    <div class="list card">
-      <div class="item item-divider">
-        Title
+    <div class="card" ng-repeat="item in itemsList2">
+      <div class="item item-divider" ng-click="gotoEdit(item.id)">
+        {{item.title}}
       </div>
       <div class="item item-text-wrap">
-        langue
-      </div>
-      <div class="item item-text-wrap">
-        Categorie
+        {{item.type}}
+        <span class="item item-note">
+        {{item.period}}
+      </span>
+      <span class="item item-note">
+      {{item.pages}}
+    </span>
       </div>
     </div>
 
     <div class="button-bar">
-      <a href="#" class="button button-calm">
+      <a href="#/app/form2/" class="button button-calm">
       <i class="icon ion-plus-circled"></i>Add a new Book
     </a>
     <a href="#" class="button button-positive">

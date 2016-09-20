@@ -1,0 +1,31 @@
+<ion-view view-title="To Read">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Title" ng-model="noteForm2.title">
+      </label>
+      <label class="item item-input">
+        <textarea placeholder="Type" ng-model="noteForm2.type"></textarea>
+      </label>
+      <label class="item item-input">
+        <textarea placeholder="period" ng-model="noteForm2.period"></textarea>
+      </label>
+      <label class="item item-input">
+        <textarea placeholder="number of pages" ng-model="noteForm2.pages"></textarea>
+      </label>
+    </div>
+
+    <button ng-show="!noteForm2.id" class="button button-full button-positive ng-hide" ng-click="saveNote2()">
+      Save
+    </button>
+
+    <div ng-show="noteForm2.id" class="button-bar">
+      <a class="button button-positive" ng-click="saveNote2()">
+        <i class="icon ion-checkmark"></i>
+      </a>
+      <a class="button button-calm" ng-click="confirmDelete(noteForm2.id)">
+        <i class="icon ion-trash-b"></i>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>
