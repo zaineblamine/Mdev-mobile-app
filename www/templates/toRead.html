@@ -1,0 +1,19 @@
+<ion-view view-title="To Read">
+  <ion-content >
+
+    <div class="card" ng-repeat="item in itemsList">
+      <div class="item item-divider" ng-click="gotoEdit(item.id)">
+        {{item.title}}
+      </div>
+      <div class="item item-text-wrap">
+        {{item.content}}
+        <span class="item item-note">
+        {{item.content}}
+      </span>
+      </div>
+    </div>
+    <a href="#/app/form/" class="button button-block button-positive">
+      <i class="icon ion-plus-circled"></i> Add
+    </a>
+  </ion-content>
+</ion-view>
