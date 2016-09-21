@@ -1,4 +1,4 @@
-<ion-view view-title="To Read">
+<ion-view view-title="Currently Reading">
   <ion-content>
     <div class="list">
       <label class="item item-input">
@@ -8,13 +8,16 @@
         <textarea placeholder="Type" ng-model="noteForm2.type"></textarea>
       </label>
       <label class="item item-input">
-        <textarea placeholder="period" ng-model="noteForm2.period"></textarea>
+        <textarea placeholder="date" ng-model="ionicDatePicker" ng-click="openDatePicker()"></textarea>
       </label>
       <label class="item item-input">
-        <textarea placeholder="number of pages" ng-model="noteForm2.pages"></textarea>
+        <textarea placeholder="number of pages" ng-model="noteForm2.pages" ></textarea>
       </label>
     </div>
-
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" ngModel="myDate"></ion-datetime>
+    </ion-item>
     <button ng-show="!noteForm2.id" class="button button-full button-positive ng-hide" ng-click="saveNote2()">
       Save
     </button>

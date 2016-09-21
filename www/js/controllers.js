@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ionic-datepicker'])
 .controller('AppCtrl', function($scope, $ionicSideMenuDelegate) {
    $scope.toggleLeftSideMenu = function() {
       $ionicSideMenuDelegate.toggleLeft();
@@ -27,7 +27,7 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService) {
+  .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService, ionicDatePicker) {
     $scope.$on('$ionicParentView.enter', function(e) {
       initForm()
     })
@@ -69,7 +69,7 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('FormCtrl2', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService) {
+  .controller('FormCtrl2', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService,ionicDatePicker) {
     $scope.$on('$ionicParentView.enter', function(e) {
       initForm2()
     })
@@ -107,6 +107,20 @@ angular.module('starter.controllers', [])
         }
       })
     }
-
-
+    //-------------------Datapicker part--------------------------------------------------------------------
+        var ipObj1 = {
+      callback: function (val) {  //Mandatory
+        console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+      },
+      from: new Date(2012, 1, 1), //Optional
+      to: new Date(2016, 10, 30), //Optional
+      inputDate: new Date(),      //Optional
+      mondayFirst: true,          //Optional
+      closeOnSelect: false,       //Optional
+      templateType: 'popup'       //Optional
+    };
+    $scope.openDatePicker = function(){
+      ionicDatePicker.openDatePicker(ipObj1);
+    };
+    //-----------------------------------------------------------------------
   })

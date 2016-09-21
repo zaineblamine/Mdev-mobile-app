@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -68,3 +68,23 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
 
   $urlRouterProvider.otherwise('/app/toRead')
 })
+.config(function (ionicDatePickerProvider) {
+    var datePickerObj = {
+      inputDate: new Date(),
+      titleLabel: 'Select a Date',
+      setLabel: 'Set',
+      todayLabel: 'Today',
+      closeLabel: 'Close',
+      mondayFirst: false,
+      weeksList: ["S", "M", "T", "W", "T", "F", "S"],
+      monthsList: ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
+      templateType: 'popup',
+      from: new Date(2012, 8, 1),
+      to: new Date(2018, 8, 1),
+      showTodayButton: true,
+      dateFormat: 'dd MMMM yyyy',
+      closeOnSelect: false,
+      disableWeekdays:[]
+    };
+    ionicDatePickerProvider.configDatePicker(datePickerObj);
+  })

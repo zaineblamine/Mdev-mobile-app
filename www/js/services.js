@@ -18,7 +18,7 @@ angular.module('starter.services', ['ngCordova'])
 
         }, onErrorQuery)
 
-        $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS Reading (id integer primary key, title, type, period, pages);')
+        $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS Reading (id integer primary key, title, type, period , pages);')
           .then(function(res){
 
           }, onErrorQuery)
