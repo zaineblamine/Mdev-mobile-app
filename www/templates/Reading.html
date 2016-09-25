@@ -3,12 +3,12 @@
     <div class="card" ng-repeat="item in itemsList2">
       <div class="item item-divider" ng-click="gotoEdit(item.id)">
         {{item.title}}
+        <span class="item-note">
+          {{item.type}}
+        </span>
       </div>
       <div class="item item-text-wrap">
-        {{item.type}}
-        <span class="item item-note">
         {{item.period}}
-      </span>
       <span class="item item-note">
       {{item.pages}}
     </span>

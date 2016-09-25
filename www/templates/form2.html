@@ -2,22 +2,30 @@
   <ion-content>
     <div class="list">
       <label class="item item-input">
-        <input type="text" placeholder="Title" ng-model="noteForm2.title">
+        <textarea type="text" placeholder="Title" ng-model="noteForm2.title"></textarea>
+        <!--select ng-model="noteForm2.type">
+          <option selected>Literature</option>
+          <option>Computer Science</option>
+          <option>Science</option>
+        </select-->
       </label>
+
       <label class="item item-input">
-        <textarea placeholder="Type" ng-model="noteForm2.type"></textarea>
+        <textarea id="type2" placeholder="type" ng-click='open()' >{{noteForm2.type}}</textarea>
+        <script id='orderPopup.html' type='text/ng-template' >
+          <ion-radio class="wrapping-list" ng-model="noteForm2.type" ng-value="'Literature'" selected>Literature</ion-radio>
+          <ion-radio class="wrapping-list" ng-model="noteForm2.type" ng-value="'Computer Science'">Computer Science</ion-radio>
+          <ion-radio class="wrapping-list" ng-model="noteForm2.type" ng-value="'Maths'">Maths</ion-radio>
+        </script>
       </label>
+
       <label class="item item-input">
-        <textarea placeholder="date" ng-model="ionicDatePicker" ng-click="openDatePicker()"></textarea>
+        <textarea  id="date2" placeholder="date" ng-click="openDatePicker()" ng-modal="noteForm2.period">{{noteForm2.period}}</textarea>
       </label>
       <label class="item item-input">
         <textarea placeholder="number of pages" ng-model="noteForm2.pages" ></textarea>
       </label>
     </div>
-    <ion-item>
-      <ion-label>Date</ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" ngModel="myDate"></ion-datetime>
-    </ion-item>
     <button ng-show="!noteForm2.id" class="button button-full button-positive ng-hide" ng-click="saveNote2()">
       Save
     </button>

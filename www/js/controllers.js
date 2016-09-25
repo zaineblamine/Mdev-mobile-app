@@ -69,7 +69,77 @@ angular.module('starter.controllers', ['ionic-datepicker'])
 
   })
 
-  .controller('FormCtrl2', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService,ionicDatePicker) {
+  .controller('FormCtrl2', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService,ionicDatePicker,$filter) {
+    $scope.choice = {
+  value: '2'
+};
+
+$scope.open = function () {
+  $ionicPopup.confirm({
+    templateUrl: 'orderPopup.html',
+    title: 'Type',
+    scope: $scope,
+    buttons: [{
+      text: 'Close',
+      type: 'button-calm',
+      onTap: function (e) {
+        console.log($scope.choice);
+      }
+    } /*,{
+      text: 'Close',
+      type: 'button-calm',
+      onTap: function (e) {
+        $state.go('shoppingCart');
+      }
+    }*/]
+  });
+  //document.getElementById('type2').value=$scope.noteForm2.type;
+}
+
+//-------------------------------------------------------------------------------------
+
+  /*Art
+Biography
+Business
+Chick Lit
+Children's
+Christian
+Classics
+Comics
+Contemporary
+Cookbooks
+Crime
+Ebooks
+Fantasy
+Fiction
+Gay and Lesbian
+Graphic Novels
+Historical Fiction
+History
+Horror
+Humor and Comedy
+Manga
+Memoir
+Music
+Mystery
+Nonfiction
+Paranormal
+Philosophy
+Poetry
+Psychology
+Religion
+Romance
+Science
+Science Fiction
+Self Help
+Suspense
+Spirituality
+Sports
+Thriller
+Travel
+More genres…
+*/
+  //----------------------------------------------------------------------------------
     $scope.$on('$ionicParentView.enter', function(e) {
       initForm2()
     })
@@ -89,6 +159,7 @@ angular.module('starter.controllers', ['ionic-datepicker'])
     $scope.saveNote2 = function(){
 
       if(!$scope.noteForm2.id){
+        $scope.noteForm2.period=d;
         NotesDataService.createNote2($scope.noteForm2).then(onSaveSuccess)
       } else {
         NotesDataService.updateperiod($scope.noteForm2).then(onSaveSuccess)
@@ -108,9 +179,14 @@ angular.module('starter.controllers', ['ionic-datepicker'])
       })
     }
     //-------------------Datapicker part--------------------------------------------------------------------
+        var d;
         var ipObj1 = {
-      callback: function (val) {  //Mandatory
-        console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+      callback: function (val) {
+        var d1=new Date(val);
+        d = d1.toString().slice(4,15);
+        console.log('Return value from the datepicker popup is : ' + val, d);
+        var x=document.getElementById("date2");
+        x.value=  d;
       },
       from: new Date(2012, 1, 1), //Optional
       to: new Date(2016, 10, 30), //Optional
@@ -122,5 +198,4 @@ angular.module('starter.controllers', ['ionic-datepicker'])
     $scope.openDatePicker = function(){
       ionicDatePicker.openDatePicker(ipObj1);
     };
-    //-----------------------------------------------------------------------
   })
