@@ -5,7 +5,12 @@
         <input type="text" placeholder="Title" ng-model="noteForm.title">
       </label>
       <label class="item item-input">
-        <textarea placeholder="Type" ng-model="noteForm.type"></textarea>
+        <textarea id="type1" placeholder="type" ng-click='open()' ></textarea>
+        <script id='orderPopup.html' type='text/ng-template' >
+          <ion-radio class="wrapping-list" ng-model="noteForm.type" ng-value="'Literature'" selected>Literature</ion-radio>
+          <ion-radio class="wrapping-list" ng-model="noteForm.type" ng-value="'Computer Science'">Computer Science</ion-radio>
+          <ion-radio class="wrapping-list" ng-model="noteForm.type" ng-value="'Maths'">Maths</ion-radio>
+        </script>
       </label>
     </div>
 

@@ -28,6 +28,27 @@ angular.module('starter.controllers', ['ionic-datepicker'])
   })
 
   .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup, $state, NotesDataService, ionicDatePicker) {
+
+    $scope.choice = {
+  value: '2'
+};
+
+$scope.open = function () {
+  $ionicPopup.confirm({
+    templateUrl: 'orderPopup.html',
+    title: 'Type',
+    scope: $scope,
+    buttons: [{
+      text: 'Close',
+      type: 'button-calm',
+      onTap: function (e) {
+
+        console.log($scope.choice);
+        document.getElementById('type1').value=$scope.noteForm.type;
+      }
+    }]
+  });
+}
     $scope.$on('$ionicParentView.enter', function(e) {
       initForm()
     })
@@ -55,8 +76,8 @@ angular.module('starter.controllers', ['ionic-datepicker'])
 
     $scope.confirmDelete = function(idNote) {
       var confirmPopup = $ionicPopup.confirm({
-        title: 'Supprimer une note',
-        template: 'êtes vous sûr de vouloir supprimer ?'
+        title: 'Delete Book',
+        template: 'are you sure you want to delete this book from the list ?'
       })
 
       confirmPopup.then(function(res) {
@@ -83,7 +104,9 @@ $scope.open = function () {
       text: 'Close',
       type: 'button-calm',
       onTap: function (e) {
+
         console.log($scope.choice);
+        document.getElementById('type2').value=$scope.noteForm2.type;
       }
     } /*,{
       text: 'Close',
@@ -168,8 +191,8 @@ More genres…
 
     $scope.confirmDelete = function(idNote) {
       var confirmPopup = $ionicPopup.confirm({
-        title: 'Supprimer une note',
-        template: 'êtes vous sûr de vouloir supprimer ?'
+        title: 'Delete Book',
+        template: 'are you sure you want to delete this book from the list ?'
       })
 
       confirmPopup.then(function(res) {
