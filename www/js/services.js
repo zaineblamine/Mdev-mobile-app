@@ -13,20 +13,10 @@ angular.module('starter.services', ['ngCordova'])
     }
 
     function initDatabase(){
-      $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS toRead (id integer primary key, title, type);')
+      $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS books (id integer primary key, title TEXT, type TEXT, pages integer, pagesRead integer, started TEXT, finished TEXT, frequence integer, status integer);')
         .then(function(res){
 
         }, onErrorQuery)
-
-        $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS Reading (id integer primary key, title, type, period , pages);')
-          .then(function(res){
-
-          }, onErrorQuery)
-
-          $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS Read (id integer primary key, title, type, started, finished, pages);')
-            .then(function(res){
-
-            }, onErrorQuery)
     }
 
     $ionicPlatform.ready(function () {
@@ -49,46 +39,43 @@ Returns: promise A promise which is resolved when the device is ready.
     return {
 //To read---------------------------------------------------------------------
       createNote: function (note) {
-        return $cordovaSQLite.execute(db, 'INSERT INTO toRead (title, type) VALUES(?, ?)', [note.title, note.type])
+        return $cordovaSQLite.execute(db, 'INSERT INTO books (title,type,pages,pagesRead,started,finished,frequence,status) VALUES(?, ?,"NULL","NULL","NULL","NULL","NULL","1")', [note.title, note.type])
       },
       updateNote: function(note){
-        return $cordovaSQLite.execute(db, 'UPDATE toRead set title = ?, type = ? where id = ?', [note.title, note.type, note.id])
+        return $cordovaSQLite.execute(db, 'UPDATE books set title = ?, type = ? where id = ?', [note.title, note.type, note.id])
       },
       getAll: function(callback){
         $ionicPlatform.ready(function () {
-          $cordovaSQLite.execute(db, 'SELECT * FROM toRead').then(function (results) {
+          $cordovaSQLite.execute(db, 'SELECT * FROM books where status="1"').then(function (results) {
             var data = []
 
             for (i = 0, max = results.rows.length; i < max; i++) {
               data.push(results.rows.item(i))
             }
-
             callback(data)
           }, onErrorQuery)
         })
       },
-
       deleteNote: function(id){
-        return $cordovaSQLite.execute(db, 'DELETE FROM toRead where id = ?', [id])
+        return $cordovaSQLite.execute(db, 'DELETE FROM books where id = ?', [id])
       },
-
       getById: function(id, callback){
         $ionicPlatform.ready(function () {
-          $cordovaSQLite.execute(db, 'SELECT * FROM toRead where id = ?', [id]).then(function (results) {
+          $cordovaSQLite.execute(db, 'SELECT * FROM books where id = ?', [id]).then(function (results) {
             callback(results.rows.item(0))
           })
         })
       },
 //Reading------------------------------------------------------------------------------------------
 createNote2: function (note) {
-  return $cordovaSQLite.execute(db, 'INSERT INTO Reading (title, type, period ,pages) VALUES(?, ?, ?,?)', [note.title, note.type, note.period, note.pages])
+  return $cordovaSQLite.execute(db, "INSERT INTO books (title, type, pages, finished,frequence,status) VALUES(?,?,?,?,'1','2')", [note.title, note.type, note.pages, note.finished])
 },
 updateperiod: function(note){
-  return $cordovaSQLite.execute(db, 'UPDATE Reading set period = ?', [note.period])
+  return $cordovaSQLite.execute(db, 'UPDATE books set period = ?', [note.period])
 },
 getAll2: function(callback){
   $ionicPlatform.ready(function () {
-    $cordovaSQLite.execute(db, 'SELECT * FROM Reading').then(function (results) {
+    $cordovaSQLite.execute(db, 'SELECT * FROM books where status="2"').then(function (results) {
       var data = []
 
       for (i = 0, max = results.rows.length; i < max; i++) {
@@ -100,16 +87,23 @@ getAll2: function(callback){
   })
 },
 
+deleteNotes : function(){
+  return $cordovaSQLite.execute(db, "DELETE FROM books where status='1'")
+},
+deleteNotes2 : function(){
+  return $cordovaSQLite.execute(db, "DELETE FROM books where status='2'")
+},
+
 deleteNote2: function(id){
-  return $cordovaSQLite.execute(db, 'DELETE FROM Reading where id = ?', [id])
+  return $cordovaSQLite.execute(db, 'DELETE FROM books where id = ?', [id])
 },
 
 getById2: function(id, callback){
   $ionicPlatform.ready(function () {
-    $cordovaSQLite.execute(db, 'SELECT * FROM Reading where id = ?', [id]).then(function (results) {
+    $cordovaSQLite.execute(db, 'SELECT * FROM books where id = ?', [id]).then(function (results) {
       callback(results.rows.item(0))
     })
   })
-}
+},
     }
   })

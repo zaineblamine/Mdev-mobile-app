@@ -12,11 +12,26 @@
           <ion-radio class="wrapping-list" ng-model="noteForm.type" ng-value="'Maths'">Maths</ion-radio>
         </script>
       </label>
+              <ion-checkbox id="check" ng-model="pushNotification.checked"
+                            ng-change="pushNotificationChange()" ng-show="!pushNotification.checked">
+                Start Reading immediately
+              </ion-checkbox>
+              <!--div class="item">
+                <pre ng-bind="pushNotification | json"></pre>
+              </div-->
+            <div ng-show="pushNotification.checked">
+            <label class="item item-input">
+              <textarea  id="date2" placeholder="date" ng-click="openDatePicker()" ng-modal="noteForm.finished">{{noteForm.finished}}</textarea>
+            </label>
+            <label class="item item-input">
+              <textarea id="pages" placeholder="number of pages" ng-model="noteForm.pages" ></textarea>
+            </label>
+          </div>
     </div>
-
     <button ng-show="!noteForm.id" class="button button-full button-positive ng-hide" ng-click="saveNote()">
       Save
     </button>
+    <a ng-show="!noteForm.id" class="button button-full button-positive ng-hide" href="#/app/add/">Cancel</a>
 
     <div ng-show="noteForm.id" class="button-bar">
       <a class="button button-positive" ng-click="saveNote()">

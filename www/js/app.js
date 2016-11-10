@@ -30,6 +30,15 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
         }
         }
       })
+      .state('app.add', {
+        url: '/add',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/add.html',
+              controller: 'AddCtrl'
+          }
+          }
+        })
 
       .state('app.form', {
       url: '/form/{id}',
@@ -52,7 +61,16 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
       }
     }
   })
-  .state('app.form2', {
+  .state('app.Read', {
+  url: '/Read',
+  views: {
+    'menuContent': {
+      templateUrl: 'templates/read.html',
+      //controller: 'ListCtrl3'
+    }
+  }
+})
+/*  .state('app.form2', {
       url: '/form2/{id}',
       params: {
         id: {value: null},
@@ -63,10 +81,10 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
       controller: 'FormCtrl2',
       }
       }
-    })
+    })*/
 
 
-  $urlRouterProvider.otherwise('/app/toRead')
+  $urlRouterProvider.otherwise('/app/add')
 })
 .config(function (ionicDatePickerProvider) {
     var datePickerObj = {
