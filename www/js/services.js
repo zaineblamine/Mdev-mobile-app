@@ -1,9 +1,9 @@
 angular.module('starter.services', ['ngCordova'])
   .factory('NotesDataService', function ($cordovaSQLite, $ionicPlatform) {
-    var db, dbName = "noteDemo.db"
+    var db, dbName = "ReadingChallenge.db"
 
     function useWebSql() {
-      db = window.openDatabase(dbName, "1.0", "Note database", 200000)
+      db = window.openDatabase(dbName, "1.0", "ReadingChallenge database", 200000)
       console.info('Using webSql')
     }
 
@@ -39,7 +39,7 @@ Returns: promise A promise which is resolved when the device is ready.
     return {
 //To read---------------------------------------------------------------------
       createNote: function (note) {
-        return $cordovaSQLite.execute(db, 'INSERT INTO books (title,type,pages,pagesRead,started,finished,frequence,status) VALUES(?, ?,"NULL","NULL","NULL","NULL","NULL","1")', [note.title, note.type])
+        return $cordovaSQLite.execute(db, 'INSERT INTO books (title,type,pages,pagesRead,started,finished,frequence,status) VALUES(?, ?,"","","","","","1")', [note.title, note.type])
       },
       updateNote: function(note){
         return $cordovaSQLite.execute(db, 'UPDATE books set title = ?, type = ? where id = ?', [note.title, note.type, note.id])
@@ -68,10 +68,10 @@ Returns: promise A promise which is resolved when the device is ready.
       },
 //Reading------------------------------------------------------------------------------------------
 createNote2: function (note) {
-  return $cordovaSQLite.execute(db, "INSERT INTO books (title, type, pages, finished,frequence,status) VALUES(?,?,?,?,'1','2')", [note.title, note.type, note.pages, note.finished])
+  return $cordovaSQLite.execute(db, "INSERT INTO books (title, type, pages,pagesRead,started, finished,frequence,status) VALUES(?,?,?,?,?,?,'1','2')", [note.title, note.type, note.pages,note.pagesRead,note.started ,note.finished])
 },
-updateperiod: function(note){
-  return $cordovaSQLite.execute(db, 'UPDATE books set period = ?', [note.period])
+startReading: function(note){
+  return $cordovaSQLite.execute(db, 'UPDATE books set title=?, type=?,started=?, finished = ?, pages= ?,pagesRead=?, status="2" where id = ?', [note.title, note.type,note.started, note.finished, note.pages,note.pagesRead,note.id])
 },
 getAll2: function(callback){
   $ionicPlatform.ready(function () {

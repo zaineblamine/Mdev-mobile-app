@@ -1,21 +1,22 @@
 <ion-view view-title="Currently Reading">
   <ion-content>
-    <a class="button button-positive button-block" ng-click="delete2()">
-      <i class="icon ion-trash-b"> Delete All</i>
-    </a>
+
     <div class="card" ng-repeat="item in itemsList2">
       <div class="item item-divider" ng-click="gotoEdit(item.id)">
         {{item.title}}
         <span class="item-note">
-          {{item.type}}
-        </span>
-      </div>
-      <div class="item item-text-wrap">
-        {{item.finished}}
-      <span class="item item-note">
-      {{item.pages}}
+          {{item.pagesRead}}/{{item.pages}}
     </span>
       </div>
+      <div class="item item-text-wrap">
+      {{item.type}}
+      <span class="item item-note">
+     <table><tr><td>  Started<td>:&nbsp;</td><td> {{item.started}}</td>
+     <tr><td>  Estimated date to finish<td>:&nbsp;<td> {{item.finished}}</tr></table>        </span>
+
+      </div>
+
+
     </div>
 
     <!--div class="button-bar">
@@ -26,6 +27,8 @@
     <i class="icon ion-plus-circled"></i> Add book from list
   </a>
 </div-->
-
+<a class="button button-positive button-block" ng-click="delete2()">
+  <i class="icon ion-trash-b"> Delete All</i>
+</a>
     </ion-content>
 </ion-view>
