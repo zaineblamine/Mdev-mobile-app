@@ -226,7 +226,8 @@ $scope.open = function () {
   to: new Date(2020, 12, 12), //Optional
   inputDate: new Date(),      //Optional
   mondayFirst: true,          //Optional
-  closeOnSelect: true,       //Optional
+  closeOnSelect: true,
+  showTodayButton:false,      //Optional
   templateType: 'popup'       //Optional
 };
 $scope.openDatePicker = function(){
