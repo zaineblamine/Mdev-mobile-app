@@ -70,8 +70,14 @@ Returns: promise A promise which is resolved when the device is ready.
 createNote2: function (note) {
   return $cordovaSQLite.execute(db, "INSERT INTO books (title, type, pages,pagesRead,started, finished,frequence,status) VALUES(?,?,?,?,?,?,'1','2')", [note.title, note.type, note.pages,note.pagesRead,note.started ,note.finished])
 },
+createNote3: function (note) {
+  return $cordovaSQLite.execute(db, "INSERT INTO books (title, type, pages,pagesRead,started, finished,frequence,status) VALUES(?,?,?,?,?,?,'1','3')", [note.title, note.type, note.pages,note.pagesRead,note.started ,note.finished])
+},
 startReading: function(note){
   return $cordovaSQLite.execute(db, 'UPDATE books set title=?, type=?,started=?, finished = ?, pages= ?,pagesRead=?, status="2" where id = ?', [note.title, note.type,note.started, note.finished, note.pages,note.pagesRead,note.id])
+},
+read: function(note){
+  return $cordovaSQLite.execute(db, 'UPDATE books set title=?, type=?,started=?, finished = ?, pages= ?,pagesRead=?, status="3" where id = ?', [note.title, note.type,note.started, note.finished, note.pages,note.pagesRead,note.id])
 },
 getAll2: function(callback){
   $ionicPlatform.ready(function () {
@@ -86,16 +92,27 @@ getAll2: function(callback){
     }, onErrorQuery)
   })
 },
+getAll3: function(callback){
+  $ionicPlatform.ready(function () {
+    $cordovaSQLite.execute(db, 'SELECT * FROM books where status="3"').then(function (results) {
+      var data = []
 
+      for (i = 0, max = results.rows.length; i < max; i++) {
+        data.push(results.rows.item(i))
+      }
+
+      callback(data)
+    }, onErrorQuery)
+  })
+},
 deleteNotes : function(){
   return $cordovaSQLite.execute(db, "DELETE FROM books where status='1'")
 },
 deleteNotes2 : function(){
   return $cordovaSQLite.execute(db, "DELETE FROM books where status='2'")
 },
-
-deleteNote2: function(id){
-  return $cordovaSQLite.execute(db, 'DELETE FROM books where id = ?', [id])
+deleteNotes3 : function(){
+  return $cordovaSQLite.execute(db, "DELETE FROM books where status='3'")
 },
 
 getById2: function(id, callback){
@@ -106,4 +123,4 @@ getById2: function(id, callback){
   })
 },
     }
-  })
+})

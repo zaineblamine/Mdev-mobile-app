@@ -66,7 +66,7 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
   views: {
     'menuContent': {
       templateUrl: 'templates/read.html',
-      //controller: 'ListCtrl3'
+      controller: 'ListCtrl3'
     }
   }
 })

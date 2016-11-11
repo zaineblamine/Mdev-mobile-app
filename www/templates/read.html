@@ -1,20 +1,24 @@
 <ion-view view-title="Read">
   <ion-content >
-    <!--a href="#/app/form/" class="button button-block button-positive">
-      <i class="icon ion-plus"></i> Add
-    </a-->
-    <a class="button button-positive button-block" ng-click="delete3()">
-      <i class="icon ion-trash-b"> Delete All</i>
-    </a>
-    <!--div class="card" ng-repeat="item in itemsList">
-      <div class="item item-divider" ng-click="gotoEdit(item.id)">
+    <div class="card" ng-repeat="item in itemsList3">
+      <div class="item item-divider">
         {{item.title}}
+        <span class="item-note">
+          {{item.pages}}
+    </span>
       </div>
       <div class="item item-text-wrap">
-        {{item.type}}
-
+      {{item.type}}
+      <span class="item item-note">
+     <table><tr><td>  Start Date<td>:&nbsp;</td><td> {{item.started}}</td>
+     <tr><td>  Finish Date<td>:&nbsp;<td> {{item.finished}}</tr></table>        </span>
       </div>
-    </div-->
+
+
+    </div>
+<a class="button button-positive button-block" ng-click="delete3()">
+  <i class="icon ion-trash-b"> Delete All</i>
+</a>
 
   </ion-content>
 </ion-view>

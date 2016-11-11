@@ -13,22 +13,28 @@
         </script>
       </label>
             <ion-checkbox id="check" ng-model="pushNotification.checked"
-                            ng-change="pushNotificationChange()" ng-show="!pushNotification.checked&&!noteForm.finished">
-                Start Reading Immediately
+                            ng-change="pushNotificationChange()" ng-show="!pushNotification.checked">
+                Start Reading
               </ion-checkbox>
               <!--div class="item">
                 <pre ng-bind="pushNotification | json"></pre>
               </div-->
-            <div ng-show="pushNotification.checked||noteForm.finished">
+            <div ng-show="pushNotification.checked">
             <label class="item item-input">
-              <textarea  id="date2" placeholder="date" ng-click="openDatePicker()" ng-modal="noteForm.finished">{{noteForm.finished}}</textarea>
+              <textarea  id="date2" placeholder="Expected Finish Reading Date" ng-click="openDatePicker()" ng-modal="noteForm.finished">{{noteForm.finished}}</textarea>
             </label>
             <label class="item item-input">
-              <textarea id="pages" placeholder="number of pages" ng-model="noteForm.pages" ></textarea>
+              <textarea id="pages" placeholder="number of pages" ng-model="noteForm.pages"></textarea>
             </label>
-            <label ng-show="noteForm.pages" class="item item-input">
+            <label class="item item-input">
               <textarea id="pagesRead" placeholder="Pages Read" ng-model="noteForm.pagesRead" ></textarea>
             </label>
+          </div>
+          <div>
+            <ion-checkbox id="check2" ng-model="pushNotification2.checked"
+                            ng-change="pushNotificationChange2()" >
+                finished
+              </ion-checkbox>
           </div>
     </div>
     <div ng-show="!noteForm.id" class="button-bar">
