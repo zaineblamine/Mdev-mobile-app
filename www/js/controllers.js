@@ -52,7 +52,7 @@ angular.module('starter.controllers', ['ionic-datepicker'])
         }
       })
       function onSaveSuccess(){
-        $state.go('app.Reading')
+        $state.go('app.reading')
         $window.location.reload();
       }
       }
@@ -145,7 +145,7 @@ $scope.open = function () {
       $window.location.reload();
     }
     function onSaveSuccess2(){
-      $state.go('app.Reading')
+      $state.go('app.reading')
       $window.location.reload();
     }
     function onSaveSuccess3(){

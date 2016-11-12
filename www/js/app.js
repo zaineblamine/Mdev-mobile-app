@@ -18,22 +18,32 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    //controller: 'AppCtrl'
   })
 
     .state('app.toRead', {
       url: '/toRead',
         views: {
-          'menuContent': {
+          'tab-toRead': {
             templateUrl: 'templates/toRead.html',
             controller: 'ListCtrl'
         }
         }
       })
+      .state('app.Read', {
+        url: '/Read',
+          views: {
+            'tab-read': {
+              templateUrl: 'templates/read.html',
+              controller: 'ListCtrl3'
+          }
+          }
+        })
+
       .state('app.add', {
         url: '/add',
           views: {
-            'menuContent': {
+            'tab-add': {
               templateUrl: 'templates/add.html',
               //controller: 'AddCtrl'
           }
@@ -46,30 +56,22 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
         id: {value: null},
       },
       views: {
-        'menuContent': {
+        'tab-form': {
       templateUrl: 'templates/form.html',
       controller: 'FormCtrl',
       }
       }
     })
-    .state('app.Reading', {
-    url: '/Reading',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/Reading.html',
-        controller: 'ListCtrl2'
+
+  .state('app.reading', {
+    url: '/reading',
+      views: {
+        'tab-reading': {
+          templateUrl: 'templates/Reading.html',
+          controller: 'ListCtrl2'
       }
-    }
-  })
-  .state('app.Read', {
-  url: '/Read',
-  views: {
-    'menuContent': {
-      templateUrl: 'templates/read.html',
-      controller: 'ListCtrl3'
-    }
-  }
-})
+      }
+    })
 /*  .state('app.form2', {
       url: '/form2/{id}',
       params: {
@@ -84,7 +86,7 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
     })*/
 
 
-  $urlRouterProvider.otherwise('/app/add')
+  $urlRouterProvider.otherwise('/app/Reading')
 })
 .config(function (ionicDatePickerProvider) {
     var datePickerObj = {
@@ -99,7 +101,7 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
       templateType: 'popup',
       from: new Date(2012, 8, 1),
       to: new Date(2018, 8, 1),
-      showTodayButton: true,
+      showTodayButton: false,
       dateFormat: 'dd MMMM yyyy',
       closeOnSelect: false,
       disableWeekdays:[]
