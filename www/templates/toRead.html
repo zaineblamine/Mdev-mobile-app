@@ -1,4 +1,8 @@
 <ion-view view-title="To Read">
+  <ion-nav-buttons side="right" ng-show="false">
+       <button class="button button-icon button-clear ion-plus" ng-click='goForm()'>
+       </button>
+     </ion-nav-buttons>
   <ion-content >
     <!--a href="#/app/form/" class="button button-block button-positive">
       <i class="icon ion-plus"></i> Add
@@ -16,7 +20,7 @@
       </span-->
       </div>
     </div>
-    <a class="button button-positive button-block" ng-click="delete()">
+    <!--a class="button button-positive button-block" ng-click="delete()">
       <i class="icon ion-trash-b"> Delete All</i>
     </a>
   </ion-content>

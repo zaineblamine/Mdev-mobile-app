@@ -19,5 +19,20 @@ $dark:                            #444 !default;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+.nav-bar{
+background-color: blue !important;
+}
 
+.tabs-positive > .tabs{
+background-color: blue !important;
+    a.tab-item {
+        color:  white !important;
+        opacity: 0.6;
+    }
+    a.tab-item-active {
+        color:  rgb(245, 231, 231) !important;
+        opacity: 1;
+        border-top:   3px;
+    }
+}
+@import "www/lib/ionic/scss/ionic";

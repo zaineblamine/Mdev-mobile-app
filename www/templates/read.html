@@ -1,8 +1,12 @@
 <ion-view view-title="Read">
+  <ion-nav-buttons side="right" ng-show="false">
+       <button class="button button-icon button-clear ion-plus" ng-click='goForm()'>
+       </button>
+     </ion-nav-buttons>
   <ion-content >
     <ion-nav-view name="tab-read"></ion-nav-view>
 
-    <div class="card" ng-repeat="item in itemsList3">
+    <div class="card" ng-repeat="item in itemsList3" ng-click="gotoEdit(item.id)">
       <div class="item item-divider">
         {{item.title}}
         <span class="item-note">
@@ -18,9 +22,9 @@
 
 
     </div>
-<a class="button button-positive button-block" ng-click="delete3()">
+<!--a class="button button-positive button-block" ng-click="delete3()">
   <i class="icon ion-trash-b"> Delete All</i>
-</a>
+</a-->
 
   </ion-content>
 </ion-view>

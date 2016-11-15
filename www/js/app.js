@@ -18,7 +18,7 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
-    //controller: 'AppCtrl'
+    controller: 'AppCtrl'
   })
 
     .state('app.toRead', {
@@ -50,17 +50,14 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
           }
         })
 
-      .state('app.form', {
+      .state('form', {
       url: '/form/{id}',
       params: {
         id: {value: null},
       },
-      views: {
-        'tab-form': {
+
       templateUrl: 'templates/form.html',
       controller: 'FormCtrl',
-      }
-      }
     })
 
   .state('app.reading', {
@@ -86,12 +83,12 @@ angular.module('starter', ['ionic','ionic-datepicker','starter.controllers', 'st
     })*/
 
 
-  $urlRouterProvider.otherwise('/app/Reading')
+  $urlRouterProvider.otherwise('/app/reading')
 })
 .config(function (ionicDatePickerProvider) {
     var datePickerObj = {
       inputDate: new Date(),
-      titleLabel: 'Select a Date',
+      titleLabel: 'Expected Finish Reading Date',
       setLabel: 'Set',
       todayLabel: 'Today',
       closeLabel: 'Close',

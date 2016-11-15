@@ -1,40 +1,38 @@
-<ion-view view-title="Add a book">
-  <ion-nav-view name="tab-form"></ion-nav-view>
-
+<ion-view view-title="{{pagetitle}}">
   <ion-content>
     <div class="list">
       <label class="item item-input">
         <input type="text" placeholder="Title" ng-model="noteForm.title">
       </label>
       <label class="item item-input">
-        <textarea id="type1" placeholder="type" ng-click='open()' >{{noteForm.type}}</textarea>
+        <textarea id="type1" placeholder="type" ng-click='open()' ng-modal=noteForm.type>{{noteForm.type}}</textarea>
         <script id='orderPopup.html' type='text/ng-template' >
           <ion-radio class="wrapping-list" ng-model="noteForm.type" ng-value="'Literature'" selected>Literature</ion-radio>
           <ion-radio class="wrapping-list" ng-model="noteForm.type" ng-value="'Computer Science'">Computer Science</ion-radio>
           <ion-radio class="wrapping-list" ng-model="noteForm.type" ng-value="'Maths'">Maths</ion-radio>
         </script>
       </label>
-            <ion-checkbox id="check" ng-model="pushNotification.checked"
-                            ng-change="pushNotificationChange()" ng-show="!pushNotification.checked">
-                Start Reading
-              </ion-checkbox>
+      <label class="item item-input">
+        <textarea id="pages" placeholder="number of pages" ng-model="noteForm.pages"></textarea>
+      </label>
               <!--div class="item">
                 <pre ng-bind="pushNotification | json"></pre>
               </div-->
             <div ng-show="pushNotification.checked">
+              <label class="item item-input">
+                <textarea id="pagesRead" placeholder="Pages Read" ng-model="noteForm.pagesRead" ></textarea>
+              </label>
             <label class="item item-input">
               <textarea  id="date2" placeholder="Expected Finish Reading Date" ng-click="openDatePicker()" ng-modal="noteForm.finished">{{noteForm.finished}}</textarea>
             </label>
-            <label class="item item-input">
-              <textarea id="pages" placeholder="number of pages" ng-model="noteForm.pages"></textarea>
-            </label>
-            <label class="item item-input">
-              <textarea id="pagesRead" placeholder="Pages Read" ng-model="noteForm.pagesRead" ></textarea>
-            </label>
           </div>
+          <ion-checkbox id="check" ng-model="pushNotification.checked"
+                          ng-change="pushNotificationChange()" ng-hide="noteForm.status==2||noteForm.status==3">
+              Start Reading
+            </ion-checkbox>
           <div>
             <ion-checkbox id="check2" ng-model="pushNotification2.checked"
-                            ng-change="pushNotificationChange2()" >
+                            ng-change="pushNotificationChange2()" ng-hide="noteForm.status==3">
                 finished
               </ion-checkbox>
           </div>
@@ -44,7 +42,7 @@
       <i class="icon ion-checkmark"></i>Save
     </button>
 
-    <a class="button button-calm" href="#/app/add/">Cancel</a>
+    <a class="button button-calm" ng-click="onCancel()">Cancel</a>
   </div>
 
 
