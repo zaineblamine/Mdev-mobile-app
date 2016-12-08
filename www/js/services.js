@@ -39,7 +39,7 @@ Returns: promise A promise which is resolved when the device is ready.
     return {
 //To read---------------------------------------------------------------------
       createNote: function (note) {
-        return $cordovaSQLite.execute(db, 'INSERT INTO books (title,type,pages,pagesRead,started,finished,frequence,status) VALUES(?, ?,"","","","","","1")', [note.title, note.type])
+        return $cordovaSQLite.execute(db, 'INSERT INTO books (title,type,pages,pagesRead,started,finished,frequence,status) VALUES(?, ?,?,"","","","","1")', [note.title, note.type, note.pages])
       },
       updateNote: function(note){
         return $cordovaSQLite.execute(db, 'UPDATE books set title = ?, type = ? where id = ?', [note.title, note.type, note.id])

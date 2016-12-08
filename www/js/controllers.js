@@ -4,17 +4,13 @@ angular.module('starter.controllers', ['ionic-datepicker'])
       $ionicSideMenuDelegate.toggleLeft();
    };
 })
-  .controller('ListCtrl', function ($scope,$ionicPlatform, $state,$stateParams,$ionicPopup, $location,NotesDataService) {
+  .controller('ListCtrl', function ($scope,$ionicPlatform, $state,$stateParams,$ionicPopup, $location,$window, NotesDataService) {
     $scope.$on('$ionicView.enter', function(e) {
         NotesDataService.getAll(function(data){
           $scope.itemsList = data
         })
     })
-    $scope.gotoEdit = function(idNote){
-            location.reload();
-            $state.go('form', {id: idNote});
 
-    }
     $scope.delete = function() {
       var confirmPopup = $ionicPopup.confirm({
         title: 'Delete All Books',
@@ -28,17 +24,19 @@ angular.module('starter.controllers', ['ionic-datepicker'])
         }
       })
       function onSaveSuccess(){
-        $state.go('app.toRead');
-        $state.reload();
+      $window.location.reload();
       }
     }
     $scope.goForm=function(){
-      $state.reload();
-      $state.go('form')
 
+      $location.path('/form/')
     }
+    $scope.gotoEdit = function(idNote){
+      //location.reload();
+      $state.go('form', {id: idNote})
+        }
   })
-  .controller('ListCtrl2', function ($scope, $ionicPlatform,$location, $stateParams, $state,$ionicPopup, NotesDataService) {
+  .controller('ListCtrl2', function ($scope, $ionicPlatform,$window, $stateParams, $state,$ionicPopup, NotesDataService) {
     $scope.$on('$ionicView.enter', function(e) {
         NotesDataService.getAll2(function(data){
           $scope.itemsList2 = data;
@@ -49,7 +47,7 @@ angular.module('starter.controllers', ['ionic-datepicker'])
       $state.go('form')
     }
     $scope.gotoEdit = function(idNote){
-      location.reload();
+      //location.reload();
       $state.go('form', {id: idNote})
         }
     $scope.delete2 = function() {
@@ -64,28 +62,25 @@ angular.module('starter.controllers', ['ionic-datepicker'])
         }
       })
       function onSaveSuccess(){
-        $state.reload();
-        $state.go('app.reading');
+        $window.location.reload();
       }
-      }
+    }
   })
 
-  .controller('ListCtrl3', function ($scope, $ionicPlatform, $stateParams, $state,$ionicPopup, NotesDataService) {
+  .controller('ListCtrl3', function ($scope, $ionicPlatform, $stateParams,$window, $state,$ionicPopup, NotesDataService) {
     $scope.$on('$ionicView.enter', function(e) {
         NotesDataService.getAll3(function(data){
           $scope.itemsList3 = data
         })
     })
     $scope.goForm=function(){
-            $state.reload();
+      //location.reload()
       $state.go('form')
-
     }
     $scope.gotoEdit = function(idNote){
-      $state.reload();
+      //location.reload();
       $state.go('form', {id: idNote})
-
-    }
+        }
     $scope.delete3 = function() {
       var confirmPopup = $ionicPopup.confirm({
         title: 'Delete All Books',
@@ -98,10 +93,9 @@ angular.module('starter.controllers', ['ionic-datepicker'])
         }
       })
       function onSaveSuccess(){
-        $state.go('app.Read');
-        $state.reload();
+        $window.location.reload();
       }
-      }
+    }
   })
 
   .controller('FormCtrl', function ($scope, $stateParams, $ionicPopup,$location, $state, NotesDataService, ionicDatePicker) {
@@ -133,6 +127,7 @@ $scope.open = function () {
       text: 'Close',
       type: 'button-calm',
       onTap: function (e) {
+
         console.log($scope.choice);
         //document.getElementById('type1').value=$scope.noteForm.type;
       }
@@ -141,6 +136,7 @@ $scope.open = function () {
 }
     $scope.$on('$ionicParentView.enter', function(e) {
       initForm()
+
     })
 
     function initForm(){
@@ -168,70 +164,75 @@ $scope.open = function () {
       }
     }
     function onSaveSuccess(){
-      $state.go('app.toRead');
-      $state.reload();
+      $location.path('/app/toRead');
       $scope.pagetitle="To Read";
     }
     function onSaveSuccess2(){
-      $state.go('app.reading');
-      //$window.location.reload()
+      $location.path('/app/reading');
       $scope.pagetitle="Currently Reading";
     }
     function onSaveSuccess3(){
-      $state.go('app.Read');
-      //$window.location.reload()
+      $location.path('/app/Read');
       $scope.pagetitle="Read";
-
     }
     $scope.onCancel= function(){
-      //$window.location.reload()
-      $state.go('app.toread');
+      $location.path('/app/toRead');
     }
 
     $scope.saveNote = function(){
       //var getDate=document.getElementById("date2").value;
-      var d0=new Date();
-      var startDate=d0.toString().slice(4,15);
-      $scope.noteForm.started=startDate;
-      //$scope.noteForm.finished=getDate;
-      if(!$scope.noteForm.id){
+      if(!$stateParams.id){
+      $scope.noteForm.finished=d;
+
         if(!$scope.pushNotification.checked&&!$scope.pushNotification2.checked){
           NotesDataService.createNote($scope.noteForm)
-          $location.path('/toRead');
+          $location.path('/app/toRead');
+
+
         }
         else{
-          $scope.noteForm.pages=document.getElementById("pages").value;
-          $scope.noteForm.pagesRead=document.getElementById("pagesRead").value;
+          /*$scope.noteForm.pages=document.getElementById("pages").value;
+          $scope.noteForm.pagesRead=document.getElementById("pagesRead").value;*/
           if($scope.pushNotification.checked&&!$scope.pushNotification2.checked){
-              NotesDataService.createNote2($scope.noteForm)
-              $location.path('reading');
+            var d0=new Date();
+            var startDate=d0.toString().slice(4,15);
+            $scope.noteForm.started=startDate;
+              NotesDataService.createNote2($scope.noteForm).then(onSaveSuccess2);
+              $location.path('/app/reading');
           }
           else {
                 $scope.noteForm.finished=new Date().toString().slice(4,15);
-                NotesDataService.createNote3($scope.noteForm).then(onSaveSuccess3);
+                NotesDataService.createNote3($scope.noteForm)
+                $location.path('/app/Read');
           }
       }
+    }
 
-      }
-      else {//update part
-        if(!$scope.pushNotification.checked&&!$scope.pushNotification2.checked){
-        NotesDataService.updateNote($scope.noteForm).then(onSaveSuccess)
-      }
-      else{
+    else {//update part*/
+
+      if(!$scope.pushNotification.checked&&!$scope.pushNotification2.checked){
+      NotesDataService.updateNote($scope.noteForm)
+      location.path('/app/toRead');
+    }
+    else{
+      $scope.noteForm.pages=document.getElementById("pages").value;
+      $scope.noteForm.pagesRead=document.getElementById("pagesRead").value;
+      if($scope.pushNotification.checked&&!$scope.pushNotification2.checked){
+        var d0=new Date();
+        var startDate=d0.toString().slice(4,15);
         $scope.noteForm.started=startDate;
-        $scope.noteForm.pages=document.getElementById("pages").value;
-        $scope.noteForm.pagesRead=document.getElementById("pagesRead").value;
-        if($scope.pushNotification.checked&&!$scope.pushNotification2.checked){
-          //$scope.noteForm.finished=getDate;
-          NotesDataService.startReading($scope.noteForm).then(onSaveSuccess2);
-        }
-        else {
-              $scope.noteForm.finished=new Date().toString().slice(4,15);
-              NotesDataService.read($scope.noteForm).then(onSaveSuccess3);
-        }
+        $scope.noteForm.finished=d;
+        NotesDataService.startReading($scope.noteForm)
+        $location.path('/app/reading');
       }
+      else {
+            $scope.noteForm.finished=new Date().toString().slice(4,15);
+            NotesDataService.read($scope.noteForm)
+            $location.path('/app/Read');
       }
     }
+  }
+}
 
     $scope.confirmDelete = function(idNote) {
       var confirmPopup = $ionicPopup.confirm({
@@ -265,9 +266,9 @@ $scope.open = function () {
     d = d1.toString().slice(4,15);
     //var startDate=d0.toString().slice(4,15);
     console.log('Return value from the datepicker popup is : ' + val, d);
-    /*var x=document.getElementById("date2");
-    x.value=  d;*/
     $scope.noteForm.finished=d;
+    var x=document.getElementById("date2");
+    x.value=  d;
   },
   from: new Date(2016, 1, 1), //Optional
   to: new Date(2020, 12, 12),
