@@ -33,10 +33,10 @@ angular.module('starter.controllers', ['ionic-datepicker'])
     }
     $scope.gotoEdit = function(idNote){
       //location.reload();
-      $state.go('form', {id: idNote})
+      $location.path('/form/'+idNote)
         }
   })
-  .controller('ListCtrl2', function ($scope, $ionicPlatform,$window, $stateParams, $state,$ionicPopup, NotesDataService) {
+  .controller('ListCtrl2', function ($scope, $ionicPlatform,$window, $stateParams,$location, $state,$ionicPopup, NotesDataService) {
     $scope.$on('$ionicView.enter', function(e) {
         NotesDataService.getAll2(function(data){
           $scope.itemsList2 = data;
@@ -48,7 +48,9 @@ angular.module('starter.controllers', ['ionic-datepicker'])
     }
     $scope.gotoEdit = function(idNote){
       //location.reload();
-      $state.go('form', {id: idNote})
+      //$state.go('form', {id: idNote})
+      $location.path('/form/'+idNote)
+
         }
     $scope.delete2 = function() {
       var confirmPopup = $ionicPopup.confirm({
@@ -67,7 +69,7 @@ angular.module('starter.controllers', ['ionic-datepicker'])
     }
   })
 
-  .controller('ListCtrl3', function ($scope, $ionicPlatform, $stateParams,$window, $state,$ionicPopup, NotesDataService) {
+  .controller('ListCtrl3', function ($scope, $ionicPlatform, $stateParams,$window,$location, $state,$ionicPopup, NotesDataService) {
     $scope.$on('$ionicView.enter', function(e) {
         NotesDataService.getAll3(function(data){
           $scope.itemsList3 = data
@@ -79,7 +81,7 @@ angular.module('starter.controllers', ['ionic-datepicker'])
     }
     $scope.gotoEdit = function(idNote){
       //location.reload();
-      $state.go('form', {id: idNote})
+      $location.path('/form/'+idNote)
         }
     $scope.delete3 = function() {
       var confirmPopup = $ionicPopup.confirm({
@@ -136,7 +138,6 @@ $scope.open = function () {
 }
     $scope.$on('$ionicParentView.enter', function(e) {
       initForm()
-
     })
 
     function initForm(){
@@ -197,8 +198,15 @@ $scope.open = function () {
             var d0=new Date();
             var startDate=d0.toString().slice(4,15);
             $scope.noteForm.started=startDate;
+            if(document.getElementById('pagesRead').value==$scope.noteForm.pages){
+              $scope.noteForm.finished=new Date().toString().slice(4,15);
+              NotesDataService.createNote3($scope.noteForm)
+              $location.path('/app/Read');
+            }
+            else{
               NotesDataService.createNote2($scope.noteForm).then(onSaveSuccess2);
               $location.path('/app/reading');
+            }
           }
           else {
                 $scope.noteForm.finished=new Date().toString().slice(4,15);
@@ -215,15 +223,24 @@ $scope.open = function () {
       location.path('/app/toRead');
     }
     else{
-      $scope.noteForm.pages=document.getElementById("pages").value;
-      $scope.noteForm.pagesRead=document.getElementById("pagesRead").value;
       if($scope.pushNotification.checked&&!$scope.pushNotification2.checked){
         var d0=new Date();
         var startDate=d0.toString().slice(4,15);
         $scope.noteForm.started=startDate;
         $scope.noteForm.finished=d;
+        var x=document.getElementById('pagesRead').value;
+        console.log(x);
+        console.log($scope.noteForm.pages);
+        if(document.getElementById('pagesRead').value==$scope.noteForm.pages){
+          console.log('*'+$scope.noteForm.pages);
+          $scope.noteForm.finished=new Date().toString().slice(4,15);
+          NotesDataService.read($scope.noteForm);
+          $location.path('/app/Read');
+        }
+        else{
         NotesDataService.startReading($scope.noteForm)
         $location.path('/app/reading');
+      }
       }
       else {
             $scope.noteForm.finished=new Date().toString().slice(4,15);
@@ -257,7 +274,6 @@ $scope.open = function () {
         $state.go('app.Read')
       }
     }
-
     var d;
     var ipObj1 = {
   callback: function (val) {
@@ -267,8 +283,7 @@ $scope.open = function () {
     //var startDate=d0.toString().slice(4,15);
     console.log('Return value from the datepicker popup is : ' + val, d);
     $scope.noteForm.finished=d;
-    var x=document.getElementById("date2");
-    x.value=  d;
+    //document.getElementById("date2").value=d;
   },
   from: new Date(2016, 1, 1), //Optional
   to: new Date(2020, 12, 12),
@@ -283,5 +298,4 @@ $scope.open = function () {
 $scope.openDatePicker = function(){
   ionicDatePicker.openDatePicker(ipObj1);
 };
-
   })
